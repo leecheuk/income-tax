@@ -62,6 +62,25 @@ class AutomobileBenefits {
             return AB*2/3*(E-F);
         }
     }
+    
+    /*
+     * GetTaxableBenefit returns a string representing the taxable benefit from automobile benefit.
+     * Recall, the taxable automobile benefits is standby charge plus operating cost benefit minus 
+     * reimbursements by employees.
+     * 
+     * @return {string} - String of taxable automobile benefits
+     */
+    getTaxableBenefit () {
+        const standbyCharge = this.getStandbyCharge();
+        const operatingBenefit = this.getOperatingBenefits();
+        const {reimbursements} = this;
+        const ttb = standbyCharge + operatingBenefit - reimbursements;
+
+        return `\nTaxable automobile benefit\nStandby Charge: $${standbyCharge}` +
+                `\nOperating benefits: $${operatingBenefit}` +
+                `\nLess: Reimbursements: $${reimbursements}` + 
+                `\nTotal taxable benefits: $${ttb}`;
+    }
 }
 
 module.exports = AutomobileBenefits;
