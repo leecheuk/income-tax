@@ -22,6 +22,23 @@ class AutomobileBenefits {
         this.E = E;
         this.F = F;
     }
+
+    /*
+     * GetOperatingBenefits returns the operating benefits portion of the automobile benefit
+     * @return {number} - Amount of automobile benefit in CAD
+     */
+    getOperatingBenefits() {
+        const {totalUse, personalUse} = this;
+        const PersonalUseRatio = personalUse/totalUse;
+        const rate = 0.26 //rate given by deparate of Finance
+        const standbyCharge = this.getStandbyCharge()
+
+        if (PersonalUseRatio >= 0.5) {
+            return personalUse*rate;
+        } else {
+            return Math.min(personalUse*rate, 0.5*standbyCharge)
+        }
+    }
 }
 
 module.exports = AutomobileBenefits;
