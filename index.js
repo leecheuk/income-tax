@@ -39,6 +39,29 @@ class AutomobileBenefits {
             return Math.min(personalUse*rate, 0.5*standbyCharge)
         }
     }
+
+    /*
+     * Calculate standby charge for automobiles you own or lease
+     * @return {number} - The amount of standby charge in CAD
+     */
+    getStandbyCharge() {
+        const {personalUse, monthsAvailable, totalUse} = this;
+        const B = 1667*monthsAvailable;
+        const A = Math.min(personalUse, B);
+        let AB = A/B;
+
+        if (personalUse/totalUse >= 0.5) {
+            AB = 1;
+        } 
+
+        if (this.isOwned) {
+            const {C, D} = this;
+            return AB*0.02*C*D;
+        } else {
+            const {E, F} = this;
+            return AB*2/3*(E-F);
+        }
+    }
 }
 
 module.exports = AutomobileBenefits;
